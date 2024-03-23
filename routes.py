@@ -102,6 +102,10 @@ def get_chat_response(text):
     response = model.generate_content(text).text
     return response
 
+
+@app.route('/learngenie',methods=['GET','POST'])
+def learngenie():
+    return "hello world"
 @app.route('/login',methods=['GET','POST'] )
 def login():
     #if current_user.is_authenticated:

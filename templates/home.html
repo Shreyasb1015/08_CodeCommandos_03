@@ -103,6 +103,12 @@
         </button>
         <div class="chatbot-popup" id="chatbotPopup">Hey! I am Carrier guide bot.</div>
     </div>
+    <div class="chatbot-btn2-container">
+      <button class="btn chatbot-btn" onmouseover="showPopup2()" onmouseout="hidePopup2()" onclick="redirectToLearngenie()">
+          <img src="/static/learngeniebot.gif" alt="Chatbot GIF"> 
+      </button>
+      <div class="chatbot-popup" id="LearngeniePopup">Hey! I am Learngenie.Lets talk!!</div>
+  </div>
     
     <div class="twinkling-stars"></div>
     <script>
@@ -161,21 +167,30 @@
 
       setTimeout(typeMessage, typeSpeed);
 
-      function redirectToChatbot() {
-        window.location.href = "/chatbot";  
-    }
-
+      
     function redirectToChatbot() {
         window.location.href = "/chatbot";  
     }
+
+    function redirectToLearngenie(){
+      window.location.href = "/learngenie";
+    }
     
+    function showPopup2() {
+        document.getElementById("LearngeniePopup").style.display = "block";
+    }
+    
+    function hidePopup2() {
+        document.getElementById("LearngeniePopup").style.display = "none";
+    }
+
     function showPopup() {
-        document.getElementById("chatbotPopup").style.display = "block";
-    }
-    
-    function hidePopup() {
-        document.getElementById("chatbotPopup").style.display = "none";
-    }
+      document.getElementById("chatbotPopup").style.display = "block";
+  }
+  
+  function hidePopup() {
+      document.getElementById("chatbotPopup").style.display = "none";
+  }
     function createTwinklingStars() {
         const container = document.querySelector('.twinkling-stars');
         const numStars = 80; 

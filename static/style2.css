@@ -92,6 +92,12 @@
     right: 20px;
     z-index: 9999;
 }
+.chatbot-btn2-container {
+  position: fixed;
+  bottom: 20px;
+  right: 160px;
+  z-index: 9999;
+}
 
 .chatbot-btn {
     display: inline-block;
