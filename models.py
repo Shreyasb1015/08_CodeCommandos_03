@@ -30,5 +30,18 @@ class JobPost(db.Model):
 
     def __repr__(self):
         return f"JobPost('{self.title}', '{self.date_posted}')"
+    
+
+class AnalyzeResume(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(120), nullable=False)
+    author_name = db.Column(db.String(100), nullable=False)
+    score = db.Column(db.Float, nullable=False)
+    job_post_id = db.Column(db.Integer, nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+    def __repr__(self):
+        return f"ResumeScore('{self.username}', '{self.email}', '{self.author_name}', '{self.score}', '{self.created_at}')"
 
     

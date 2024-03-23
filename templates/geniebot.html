@@ -64,12 +64,12 @@
                     <div class="card-header msg_head">
                         <div class="d-flex bd-highlight">
                             <div class="img_cont">
-                                <img src="/static/chatbot.gif" alt="user-img" class="rounded-circle user_img">
+                                <img src="/static/learngeniebot.gif" alt="user-img" class="rounded-circle user_img">
                                 <span class="online_icon"></span>
                             </div>
                             <div class="user_info">
-                                <span>CarrierGuide Bot</span>
-                                <p>Ask me anything!</p>
+                                <span>LearnGenie</span>
+                                <b><p>Your very own Resource Finder!</p></b>
                             </div>
                         </div>
                     </div>
@@ -111,7 +111,7 @@
                         msg: rawText,
                     },
                     type: "POST",
-                    url: "/get",
+                    url: "/genieget",
                     success: function (data) {
                         var botHtml = '<div class="d-flex justify-content-start mb-4"><div class="img_cont_msg"><img src="/static/chatbot.gif " alt="user-img" class="rounded-circle user_img logo" ></div><div class="msg_cotainer">' + data.response + '<span class="msg_time">' + str_time + '</span></div></div>';
                         $("#messageFormeight").append(botHtml);
