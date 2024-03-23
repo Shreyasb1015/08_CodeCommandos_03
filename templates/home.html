@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha384-Z2U8o1JieT7iV6ScD+pLXLQfBEH3OvKxuW6F+5oWJwGDO/S3SMs9XtuvnHiH8/w7"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      integrity="sha384-rbs5jQhjWTNzIGdL5CjPb4J7gOBHd78Zg5Zb5F0VRMIqXnWJmGFE6H6UoD5lVSM+"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.rtl.min.css"
+      integrity="sha384-DOXMLfHhQkvFFp+rWTZwVlPVqdIhpDVYT9csOnHSgWQWPX0v5MCGtjCJbY6ERspU"
+      crossorigin="anonymous"
+    />
+     <link rel="stylesheet" href="{{url_for('static',filename='style2.css')}}">
+   
+  </head>
+  
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#"
+          ><img src="/static/logo.png" alt="Logo" height="45" width="140"
+        /></a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <b><a class="nav-link links" href="{{url_for('home')}}">Home</a></b>
+            </li>
+            <li class="nav-item">
+              <b><a class="nav-link links" href="{{url_for('account')}}">Account</a></b>
+            </li>
+            <li class="nav-item">
+              <b><a class="nav-link links" href="#">Feature 1</a></b>
+            </li>
+            <li class="nav-item">
+              <b><a class="nav-link links" href="#">Feature 2</a></b>
+            </li>
+            <li class="nav-item">
+              <b><a class="nav-link links" href="{{url_for('login')}}">Logout</a></b>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <h2>AI CAN <span id="typing"></span></h2>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="content">
+          <h1 class="display-4 mb-4 main-text">Artificial Intelligence</h1>
+          <p class="lead">
+            Artificial intelligence (AI) is the simulation of human intelligence
+            processes by machines, especially computer systems. These processes
+            include learning, reasoning, and self-correction.
+          </p>
+          <p class="lead">
+            AI is transforming various industries, including healthcare,
+            finance, education, and more, by automating tasks, analyzing data,
+            and providing insights.
+          </p>
+        </div>
+      </div>
+      <div
+        class="col-md-6 d-flex justify-content-center align-items-center gif-container"
+      >
+        <img
+          src="/static/home.gif"
+          class="img-fluid rounded"
+          alt="AI GIF"
+          style="width: 100%; height: auto;margin-top:-80px;"
+        />
+      </div>
+    </div>
+
+    
+
+    <div class="chatbot-btn-container">
+        <button class="btn chatbot-btn" onmouseover="showPopup()" onmouseout="hidePopup()" onclick="redirectToChatbot()">
+            <img src="/static/chatbot.gif" alt="Chatbot GIF"> 
+        </button>
+        <div class="chatbot-popup" id="chatbotPopup">Hey! I am Carrier guide bot.</div>
+    </div>
+    
+    <div class="twinkling-stars"></div>
+    <script>
+      
+      const typeSpeed = 100; 
+      const backspaceSpeed = 100; 
+      const delayBetweenMessages = 2000; 
+
+    
+      const typingElement = document.getElementById("typing");
+      const messages = [
+        "THINK",
+        "Revolutionize",
+        "Help",
+        "Transform",
+        "Analyze",
+      ];
+
+      let currentMessageIndex = 0;
+      let currentCharacterIndex = 0;
+      let isBackspacing = false;
+
+      function typeMessage() {
+        const currentMessage = messages[currentMessageIndex];
+        if (!isBackspacing) {
+          typingElement.textContent += currentMessage.charAt(
+            currentCharacterIndex
+          );
+          currentCharacterIndex++;
+          if (currentCharacterIndex < currentMessage.length) {
+            setTimeout(typeMessage, typeSpeed);
+          } else {
+            setTimeout(() => {
+              isBackspacing = true;
+              backspaceMessage();
+            }, delayBetweenMessages);
+          }
+        }
+      }
+
+      function backspaceMessage() {
+        const currentMessage = messages[currentMessageIndex];
+        typingElement.textContent = currentMessage.substring(
+          0,
+          currentCharacterIndex
+        );
+        currentCharacterIndex--;
+        if (currentCharacterIndex >= 0) {
+          setTimeout(backspaceMessage, backspaceSpeed);
+        } else {
+          isBackspacing = false;
+          currentMessageIndex = (currentMessageIndex + 1) % messages.length;
+          setTimeout(typeMessage, typeSpeed);
+        }
+      }
+
+      setTimeout(typeMessage, typeSpeed);
+
+      function redirectToChatbot() {
+        window.location.href = "/chatbot";  
+    }
+
+    function redirectToChatbot() {
+        window.location.href = "/chatbot";  
+    }
+    
+    function showPopup() {
+        document.getElementById("chatbotPopup").style.display = "block";
+    }
+    
+    function hidePopup() {
+        document.getElementById("chatbotPopup").style.display = "none";
+    }
+    function createTwinklingStars() {
+        const container = document.querySelector('.twinkling-stars');
+        const numStars = 80; 
+
+        for (let i = 0; i < numStars; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.animationDelay = Math.random() * 3 + 's'; 
+
+            container.appendChild(star);
+        }
+    }
+
+    createTwinklingStars();
+    
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

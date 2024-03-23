@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+<style>
+    :root {
+        --bg-color: #0f2862;
+        --backup-color: #091f36;
+        --text-color: #ededed;
+        --main1-color: #00abf0;
+        --main2-color: #2b6db9;
+    }
+
+    body {
+        background-color: var(--backup-color);
+        color: var(--text-color);
+        margin: 0;
+        font-family: Kreon, Arial;
+        padding-top: 20px;
+    }
+
+    ul li {
+        font-size: 22px;
+    }
+
+    nav {
+        border-bottom: 4px solid var(--main1-color);
+        box-shadow: 0 2px 0px var(--text-color);
+    }
+
+    ul li a {
+        cursor: pointer;
+        color: var(--text-color);
+    }
+
+    .links {
+        color: #ededed;
+    }
+
+    .card {
+        width: 500px; 
+        background-color: #efefef;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.5s;
+        box-shadow: 0 8px 16px var(--main1-color); 
+        margin-top: 60px;
+    }
+
+    .image img {
+        transition: all 0.5s;
+    }
+
+    .card:hover .image img {
+        transform: scale(1.5);
+    }
+
+    .btn {
+        height: 140px;
+        width: 140px;
+        border-radius: 50%;
+    }
+
+    .name {
+        font-size: 22px;
+        font-weight: bold;
+        color: black;
+    }
+
+    .idd {
+        font-size: 14px;
+        font-weight: 600;
+        color: black;
+    }
+
+    .idd1 {
+        font-size: 12px;
+    }
+
+    .number {
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .btn1 {
+        height: 40px;
+        width: 150px;
+        border: none;
+        background-color: #000;
+        color: #aeaeae;
+        font-size: 15px;
+    }
+
+    .text span {
+        font-size: 13px;
+        color: black;
+        font-weight: 500;
+    }
+
+    .form-label {
+        font-size: 15px;
+        color: black;
+    }
+
+    form{
+
+        box-shadow:0px 60px 60px var(--main1-color) inset;
+    }
+    .main-text{
+        font-size: 20px;
+        font-weight: bold;
+        color: black;
+    
+    }
+
+    .form-label{
+
+        color: #0f2862;
+        font-weight:bold;
+    }
+    span{
+
+        font-weight:bold;
+        font-size:20px;
+    }
+    .navbar-nav .nav-link {
+        color: #ededed !important; 
+    }
+    .navbar-nav .nav-link:hover {
+        color: var(--main2-color) !important; 
+    }
+    
+</style>
+    <title>Account Details</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light ">
+        <div class="container-fluid">
+          
+            <a class="navbar-brand " href="#"><img src="/static/logo.png" alt="Logo" height="45" width="140"></a>
+
+           
+            <button class="navbar-toggler" type="button"  data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+           
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <b><a class="nav-link links" href="{{url_for('home')}}">Home</a></b>
+                    </li>
+                    <li class="nav-item">
+                        <b><a class="nav-link links" href="{{url_for('account')}}">Account</a></b>
+                    </li>
+                    <li class="nav-item">
+                        <b><a class="nav-link links" href="#">Feature 1</a></b>
+                    </li>
+                    <li class="nav-item">
+                        <b><a class="nav-link links" href="#">Feature 2</a></b>
+                    </li>
+                    <li class="nav-item">
+                        <b><a class="nav-link links" href="{{url_for('login')}}">Logout</a></b>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+        <div class="card p-4">
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              <div class="alert alert-dismissible alert-success">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                {% for message in messages %}
+                  {{ message }}
+                {% endfor %}
+              </div>
+            {% endif %}
+          {% endwith %}
+            <form method="POST" action="" enctype="multipart/form-data">
+
+                {{ form.hidden_tag() }}
+                {{ form.csrf_token }}
+                <div class="image d-flex flex-column justify-content-center align-items-center">
+                    <button class="btn btn-secondary">
+                        {% if image_file %}
+                        <img src="{{ image_file }}" height="100" width="100" />
+                        {% else %}
+
+                            <img src="{{ url_for('static', filename='default.jpg') }}" height="100" width="100" />
+                        {% endif %}
+                    </button>
+                    <div class="mt-3">
+                        <label for="username" class="form-label">{{ form.username.label }}</label>
+                        {{ form.username(class="form-control") }}
+                        {% if form.username.errors %}
+                            <div class="text-danger">{{ form.username.errors|join(', ') }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mt-3">
+                        <label for="email" class="form-label">{{ form.email.label }}</label>
+                        {{ form.email(class="form-control") }}
+                        {% if form.email.errors %}
+                            <div class="text-danger">{{ form.email.errors|join(', ') }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="d-flex mt-2">
+                        <label for="picture" class="form-label">{{ form.picture.label }}</label>
+                        {% if form.picture.errors %}
+                            <div class="text-danger">{{ form.picture.errors|join(', ') }}</div>
+                        {% endif %}
+                        {{ form.picture(class="form-control btn1 ") }}
+                    </div>
+                    <div class="text mt-3">
+                       <span >"CodeCommandos-Working for Community"</span>
+                    </div>
+                    <div class="px-2 mt-4 date">
+                        {{ form.submit(class="",value="Update Profile",style="padding:8px; border-radius:10%; color:#00abf0;") }}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
