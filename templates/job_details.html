@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="job-post">
+        <h2>{{ job_post.title }}</h2>
+        <p>{{ job_post.description }}</p>
+        {% if current_user != job_post.author %}
+            <form action="{{ url_for('apply_job', job_id=job_post.id) }}" method="POST">
+                <button type="submit" class="btn btn-primary">Apply</button>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

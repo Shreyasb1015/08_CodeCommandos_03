@@ -2,9 +2,9 @@ from flask import Flask,render_template,url_for,flash,redirect,request,abort,jso
 import os
 import secrets
 from PIL import Image
-from forms import RegistrationForm,LoginForm,UpdateAccountForm
+from forms import RegistrationForm,LoginForm,UpdateAccountForm,JobPostForm
 from flask_sqlalchemy import SQLAlchemy
-from models import User
+from models import User,JobPost
 from __init__ import app, db,bcrypt     #type:ignore
 from flask_login import login_user,current_user,logout_user,login_required
 import google.generativeai as genai
@@ -126,3 +126,33 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('login'))
+
+
+@app.route('/post_job', methods=['GET', 'POST'])
+@login_required
+def post_job():
+    form = JobPostForm()
+    if form.validate_on_submit():
+        job_post = JobPost(title=form.title.data, description=form.description.data, author=current_user)
+        db.session.add(job_post)
+        db.session.commit()
+        flash('Your job post has been created!', 'success')
+        return redirect(url_for('home'))
+    return render_template('post_job.html', title='Post Job', form=form)
+
+@app.route('/apply_job/<int:job_id>', methods=['POST'])
+@login_required
+def apply_job(job_id):
+    job_post = JobPost.query.get_or_404(job_id)
+    if job_post.author == current_user:
+        flash('You cannot apply to your own job post!', 'warning')
+        return redirect(url_for('home'))
+    
+    flash('Your application has been submitted!', 'success')
+    return redirect(url_for('home'))
+
+
+@app.route('/all_jobs')
+def all_jobs():
+    job_posts = JobPost.query.all()
+    return render_template('all_jobs.html', job_posts=job_posts)
