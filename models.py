@@ -45,3 +45,8 @@ class AnalyzeResume(db.Model):
         return f"ResumeScore('{self.username}', '{self.email}', '{self.author_name}', '{self.score}', '{self.created_at}')"
 
     
+
+class Interest(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    interest = db.Column(db.String(255), nullable=False)

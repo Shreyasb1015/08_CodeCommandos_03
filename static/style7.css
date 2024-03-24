@@ -1,0 +1,86 @@
+
+:root {
+    --bg-color: #0f2862;
+    --backup-color: #091f36;
+    --text-color: #ededed;
+    --main1-color: #00abf0;
+    --main2-color: #2b6db9;
+}
+
+body {
+    background-color: var(--backup-color);
+    color: var(--text-color);
+    margin: 0;
+    font-family: Kreon, Arial;
+    padding-top: 20px;
+}
+
+ul li {
+    font-size: 22px;
+}
+
+nav {
+    border-bottom: 4px solid var(--main1-color);
+    box-shadow: 0 2px 0px var(--text-color);
+}
+
+ul li a {
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.links {
+    color: #ededed;
+}
+
+
+.form-group label {
+    font-size: 18px; 
+    color: var(--text-color);
+}
+
+.form-control {
+    font-size: 16px; 
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--main1-color);
+}
+
+.btn-primary {
+    background-color: var(--main1-color); 
+    border-color: var(--main1-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--main2-color); 
+    border-color: var(--main2-color);
+}
+
+
+.skill-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid var(--main1-color);
+    border-radius: 5px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.skill-input:focus {
+    border-color: var(--main2-color);
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--main1-color);
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background-color: var(--main2-color);
+}

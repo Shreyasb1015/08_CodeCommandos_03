@@ -4,12 +4,14 @@ import secrets
 from PIL import Image
 from forms import RegistrationForm,LoginForm,UpdateAccountForm,JobPostForm
 from flask_sqlalchemy import SQLAlchemy
-from models import User,JobPost,AnalyzeResume
+from models import User,JobPost,AnalyzeResume,Interest
 from __init__ import app, db,bcrypt     #type:ignore
 from flask_login import login_user,current_user,logout_user,login_required
 import google.generativeai as genai
 import io
-
+from sqlalchemy import func
+from sqlalchemy.orm import aliased
+from sqlalchemy import or_
 import base64
 import pdfminer
 from pdfminer.high_level import extract_text
@@ -255,3 +257,47 @@ def geniechat():
         return jsonify({"response": response})
     
 
+
+@app.route('/my_interests',methods=['POST','GET'])
+def my_interests():
+    
+    
+    if request.method == 'POST':
+        user_id = current_user.id
+        
+        interests = request.form.get('interests')
+        if interests:
+            interests_list = [interest.strip() for interest in interests.split(',')]
+        
+            for interest in interests_list:
+                new_interest = Interest(user_id=user_id, interest=interest)
+                db.session.add(new_interest)
+            db.session.commit()
+        
+            recommended_users = get_recommended_users(user_id, interests_list)
+            if recommended_users:
+                 return render_template('recommend_user.html', users=recommended_users)
+            else:
+                flash('No recommended users found!', 'info')
+                return render_template('my_interest.html')
+            
+           
+    
+    return render_template('my_interest.html')
+
+
+def get_recommended_users(user_id, interests_list):
+    current_user_interests = aliased(Interest)
+
+    recommended_users = db.session.query(User).\
+        join(Interest, Interest.user_id == User.id).\
+        join(current_user_interests, or_(current_user_interests.interest == Interest.interest,
+                                         current_user_interests.user_id == user_id)).\
+        filter(current_user_interests.user_id != user_id).\
+        filter(Interest.interest.in_(interests_list)).\
+        group_by(User).\
+        having(func.count(db.func.distinct(Interest.interest)) >= 1).\
+        all()
+    recommended_users = [user for user in recommended_users if user.id != user_id]
+
+    return recommended_users
