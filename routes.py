@@ -15,6 +15,10 @@ from sqlalchemy import or_
 import base64
 import pdfminer
 from pdfminer.high_level import extract_text
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.metrics.pairwise import cosine_similarity
+import pandas as pd
 
 
 
@@ -97,7 +101,7 @@ def chatbot():
 @app.route("/get", methods=["GET", "POST"])
 def chat():
     msg = request.form["msg"]
-    if model.generate_content(f"Is {msg} query related to carrier guidance or tips regarding for carrier.Please only state ans in yes or no?").text=="Yes":
+    if model.generate_content(f"Is {msg} query related to carrier guidance or tips regarding for carrier or resources for cracking interview of any company or any links or courses for cracking company interview.Please only state ans in yes or no?").text=="Yes":
         input_msg = msg
         response = get_chat_response(input_msg)
         response=response.replace("**","").split("*")
@@ -197,6 +201,10 @@ def analyze(job_id):
             print("Predicted Score:", score)
             score=score.replace("**","")
             score_obtained=float(score)
+            #Setting threshold
+            if score_obtained <0.5:
+                flash('Score is less than 0.5,So not eligible for job','danger')
+                return redirect(url_for('home'))
         else:
             print("Predicted score not found in the response.")   
         
@@ -301,3 +309,68 @@ def get_recommended_users(user_id, interests_list):
     recommended_users = [user for user in recommended_users if user.id != user_id]
 
     return recommended_users
+
+def preprocess_skills(skills):
+    if isinstance(skills, str):
+        return ' '.join(skills.split('|'))
+    else:
+        return ''
+
+def preprocess_experience(experience):
+    if isinstance(experience, str):
+        try:
+            num_value = int(experience.split()[0])
+            return num_value
+        except ValueError:
+            return -1
+    else:
+        return -1
+
+def recommend_jobs(df, user_skills, user_location, user_experience):
+    df['Key Skills'] = df['Key Skills'].apply(preprocess_skills)
+    df['Job Experience Required'] = df['Job Experience Required'].apply(preprocess_experience).astype(int)
+
+    if df.empty:
+        return pd.DataFrame()  
+
+    location_encoder = OneHotEncoder()
+    location_encoded = location_encoder.fit_transform(df[['Location']])
+    user_location_encoded = location_encoder.transform([[user_location]])
+
+    all_skills = df['Key Skills'].tolist() + [user_skills]
+
+    tfidf_vectorizer = TfidfVectorizer()
+    skills_tfidf = tfidf_vectorizer.fit_transform(all_skills)
+    user_skills_tfidf = tfidf_vectorizer.transform([user_skills])
+
+    if skills_tfidf[:-1].shape[0] > 0:
+        skills_similarity = cosine_similarity(user_skills_tfidf, skills_tfidf[:-1])
+    else:
+        return pd.DataFrame()
+
+    filtered_df = df[(df['Location'] == user_location) & (df['Job Experience Required'] >= int(user_experience))]
+    filtered_df.reset_index(drop=True, inplace=True)
+    filtered_similarity_scores = skills_similarity[:, filtered_df.index]
+
+    final_scores = filtered_similarity_scores.flatten() * filtered_df['Job Experience Required'].apply(lambda exp: exp / int(user_experience))
+    filtered_df['Final Score'] = final_scores
+
+    top_recommendations = filtered_df.sort_values(by='Final Score', ascending=False)
+    return top_recommendations
+
+@app.route('/find_jobs', methods=['GET', 'POST'])
+def find_jobs():
+    if request.method == 'POST':
+        user_skills = request.form['user_skills']
+        user_location = request.form['user_location']
+        user_experience = request.form['user_experience']
+
+        # Load data
+        df = pd.read_csv('C:\\code-files\\Ai-hackathon-pre\\jobs.csv')
+
+        recommendations = recommend_jobs(df, user_skills, user_location, user_experience)
+        top_recommendations = recommendations.head(5)
+
+        return render_template('recommendation.html', recommendations=top_recommendations)
+    else:
+        return render_template('input_form.html')
