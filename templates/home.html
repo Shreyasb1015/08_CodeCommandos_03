@@ -21,10 +21,9 @@
       integrity="sha384-DOXMLfHhQkvFFp+rWTZwVlPVqdIhpDVYT9csOnHSgWQWPX0v5MCGtjCJbY6ERspU"
       crossorigin="anonymous"
     />
-     <link rel="stylesheet" href="{{url_for('static',filename='style2.css')}}">
-   
+    <link rel="stylesheet" href="{{url_for('static',filename='style2.css')}}" />
   </head>
-  
+
   <body>
     <nav class="navbar navbar-expand-lg navbar-light">
       <div class="container-fluid">
@@ -50,34 +49,52 @@
         >
           <ul class="navbar-nav">
             <li class="nav-item">
-              <b><a class="nav-link links" href="{{url_for('home')}}">Home</a></b>
+              <b
+                ><a class="nav-link links" href="{{url_for('home')}}"
+                  >Home</a
+                ></b
+              >
             </li>
             <li class="nav-item">
-              <b><a class="nav-link links" href="{{url_for('account')}}">Account</a></b>
+              <b
+                ><a class="nav-link links" href="{{url_for('account')}}"
+                  >Account</a
+                ></b
+              >
             </li>
             <li class="nav-item">
-              <b><a class="nav-link links" href="{{url_for('all_jobs')}}">Explore</a></b>
+              <b
+                ><a class="nav-link links" href="{{url_for('all_jobs')}}"
+                  >Explore</a
+                ></b
+              >
             </li>
             <li class="nav-item">
-              <b><a class="nav-link links" href="https://dummyrpbycc.streamlit.app/">Resume Parser</a></b>
+              <b
+                ><a
+                  class="nav-link links"
+                  href="https://dummyrpbycc.streamlit.app/"
+                  >Resume Parser</a
+                ></b
+              >
             </li>
             <li class="nav-item">
-              <b><a class="nav-link links" href="{{url_for('login')}}">Logout</a></b>
+              <b
+                ><a class="nav-link links" href="{{url_for('login')}}"
+                  >Logout</a
+                ></b
+              >
             </li>
           </ul>
         </div>
       </div>
     </nav>
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-          <div class="alert alert-dismissible alert-success">
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            {% for message in messages %}
-              {{ message }}
-            {% endfor %}
-          </div>
-        {% endif %}
-    {% endwith %}
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <div class="alert alert-dismissible alert-success">
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      {% for message in messages %} {{ message }} {% endfor %}
+    </div>
+    {% endif %} {% endwith %}
 
     <h2>CarrierCrafter <span id="typing"></span></h2>
     <div class="row">
@@ -85,11 +102,16 @@
         <div class="content">
           <h1 class="display-4 mb-4 main-text">CarrierCrafter</h1>
           <p class="lead">
-            CarrierCrafters is your trusted partner in navigating the complex landscape of career opportunities. 
-            At CarrierCrafters, we combine cutting-edge technology with personalized guidance to empower you in making informed decisions about your career. 
+            CarrierCrafters is your trusted partner in navigating the complex
+            landscape of career opportunities. At CarrierCrafters, we combine
+            cutting-edge technology with personalized guidance to empower you in
+            making informed decisions about your career.
           </p>
           <p class="lead">
-            Join us on this transformative journey towards success and unlock a world of opportunities tailored specifically for you. Let CarrierCrafters be your compass as you chart your course to a rewarding and fulfilling career.
+            Join us on this transformative journey towards success and unlock a
+            world of opportunities tailored specifically for you. Let
+            CarrierCrafters be your compass as you chart your course to a
+            rewarding and fulfilling career.
           </p>
         </div>
       </div>
@@ -100,23 +122,34 @@
           src="/static/home.gif"
           class="img-fluid rounded"
           alt="AI GIF"
-          style="width: 100%; height: auto;margin-top:-80px;"
+          style="width: 100%; height: auto; margin-top: -80px"
         />
       </div>
     </div>
 
-    
-
     <div class="chatbot-btn-container">
-        <button class="btn chatbot-btn" onmouseover="showPopup()" onmouseout="hidePopup()" onclick="redirectToChatbot()">
-            <img src="/static/chatbot.gif" alt="Chatbot GIF"> 
-        </button>
-        <div class="chatbot-popup" id="chatbotPopup">Hey! I am Carrier guide bot.</div>
+      <button
+        class="btn chatbot-btn"
+        onmouseover="showPopup()"
+        onmouseout="hidePopup()"
+        onclick="redirectToChatbot()"
+      >
+        <img src="/static/chatbot.gif" alt="Chatbot GIF" />
+      </button>
+      <div class="chatbot-popup" id="chatbotPopup">
+        Hey! I am Carrier guide bot.
+      </div>
     </div>
     <div class="chatbot-btn2-container">
-      <button class="btn chatbot-btn" onmouseover="showPopup2()" onmouseout="hidePopup2()" onclick="redirectToLearngenie()">
-          <img src="/static/learngeniebot.gif" alt="Chatbot GIF"> 
+      <button
+        class="btn chatbot-btn"
+        onmouseover="showPopup2()"
+        onmouseout="hidePopup2()"
+        onclick="redirectToLearngenie()"
+      >
+        <img src="/static/learngeniebot.gif" alt="Chatbot GIF" />
       </button>
+<<<<<<< HEAD
       <div class="chatbot-popup" id="LearngeniePopup">Hey! I am Learngenie.Lets talk!!</div>
   </div>
   <div class="chatbot-btn3-container">
@@ -130,22 +163,26 @@
 
 
     
+=======
+      <div class="chatbot-popup" id="LearngeniePopup">
+        Hey! I am Learngenie.Lets talk!!
+      </div>
+    </div>
+
+>>>>>>> 8e550f6043c068333de75b76b6b27bba24593bf8
     <div class="twinkling-stars"></div>
     <script>
-      
-      const typeSpeed = 100; 
-      const backspaceSpeed = 100; 
-      const delayBetweenMessages = 2000; 
+      const typeSpeed = 100;
+      const backspaceSpeed = 100;
+      const delayBetweenMessages = 2000;
 
-    
       const typingElement = document.getElementById("typing");
       const messages = [
-    "Unlocking Your Potential",
-    "Navigating Career Paths",
-    "Empowering Your Journey",
-    "Charting Your Career Course",
-  ];
-
+        "Unlocking Your Potential",
+        "Navigating Career Paths",
+        "Empowering Your Journey",
+        "Charting Your Career Course",
+      ];
 
       let currentMessageIndex = 0;
       let currentCharacterIndex = 0;
@@ -187,23 +224,19 @@
 
       setTimeout(typeMessage, typeSpeed);
 
-      
-    function redirectToChatbot() {
-        window.location.href = "/chatbot";  
-    }
+      function redirectToChatbot() {
+        window.location.href = "/chatbot";
+      }
 
-    function redirectToLearngenie(){
-      window.location.href = "/learngenie";
-    }
-    
-    function showPopup2() {
+      function redirectToLearngenie() {
+        window.location.href = "/learngenie";
+      }
+
+      function showPopup2() {
         document.getElementById("LearngeniePopup").style.display = "block";
-    }
-    
-    function hidePopup2() {
-        document.getElementById("LearngeniePopup").style.display = "none";
-    }
+      }
 
+<<<<<<< HEAD
     function showPopup() {
       document.getElementById("chatbotPopup").style.display = "block";
   }
@@ -222,23 +255,43 @@ function hidePopup3() {
     function createTwinklingStars() {
         const container = document.querySelector('.twinkling-stars');
         const numStars = 80; 
+=======
+      function hidePopup2() {
+        document.getElementById("LearngeniePopup").style.display = "none";
+      }
+
+      function showPopup() {
+        document.getElementById("chatbotPopup").style.display = "block";
+      }
+
+      function hidePopup() {
+        document.getElementById("chatbotPopup").style.display = "none";
+      }
+      function createTwinklingStars() {
+        const container = document.querySelector(".twinkling-stars");
+        const numStars = 80;
+>>>>>>> 8e550f6043c068333de75b76b6b27bba24593bf8
 
         for (let i = 0; i < numStars; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            star.style.left = Math.random() * 100 + 'vw';
-            star.style.top = Math.random() * 100 + 'vh';
-            star.style.animationDelay = Math.random() * 3 + 's'; 
+          const star = document.createElement("div");
+          star.className = "star";
+          star.style.left = Math.random() * 100 + "vw";
+          star.style.top = Math.random() * 100 + "vh";
+          star.style.animationDelay = Math.random() * 3 + "s";
 
-            container.appendChild(star);
+          container.appendChild(star);
         }
-    }
+      }
 
+<<<<<<< HEAD
     createTwinklingStars();
     function redirectToJobRecommendation() {
       window.location.href = "https://job-recommendation-by-cc.streamlit.app/";  
   }
     
+=======
+      createTwinklingStars();
+>>>>>>> 8e550f6043c068333de75b76b6b27bba24593bf8
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
