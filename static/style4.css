@@ -74,3 +74,39 @@ nav{
 .job-post button:hover {
     background-color: #2a77a6; 
 }
+
+.fixed-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--main1-color);
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    z-index: 1000; 
+}
+
+.plus-icon {
+    width: 60px;
+    height: 60px;
+    color: var(--text-color);
+}
+.job-post button {
+    background-color: var(--main1-color);
+    color: var(--text-color);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.job-post button:hover {
+    background-color: #2a77a6; /
+}
+
+

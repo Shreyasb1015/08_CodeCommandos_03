@@ -27,8 +27,6 @@ def home():
     return render_template('home.html')
 
 
-
-
 def save_picture(form_picture):
     random_hex=secrets.token_hex(8)
     _, f_ext=os.path.splitext(form_picture.filename)
@@ -65,6 +63,7 @@ def account():
 @app.route('/layout')
 def layout():
     return render_template('layout.html')   
+
 
 @app.route('/register',methods=['GET','POST'])
 def register():
@@ -248,11 +247,9 @@ def geniechat():
    if request.method == 'POST':
         msg = request.form["msg"]
             
-        prompt=f""" f"Act as Resource Finder Bot, which takes user company  and suggests useful links, contents, docs, or courses to help the user crack their dream company. Be helpful and provide real links."
-        
-         
+        prompt=f""" f"Act as Resource Finder Bot, which  suggests useful links, contents, docs, or courses to help the user crack their dream company. Be helpful and provide real links."
         """
-        response = get_chat_response(prompt)
+        response = get_chat_response(f'Follow {prompt},and now answer {msg}')
         response=response.replace("**","").split("*")
         chat_history.append({"user": msg, "gemini": response})
         return jsonify({"response": response})

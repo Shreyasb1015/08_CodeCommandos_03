@@ -119,6 +119,16 @@
       </button>
       <div class="chatbot-popup" id="LearngeniePopup">Hey! I am Learngenie.Lets talk!!</div>
   </div>
+  <div class="chatbot-btn3-container">
+    <button class="btn chatbot-btn" onmouseover="showPopup3()" onmouseout="hidePopup3()" onclick="redirectToJobRecommendation()">
+        <img src="/static/job.gif" alt="Job GIF"> 
+    </button>
+    <div class="chatbot-popup" id="JobPopup">Find Best Jobs for you!!!</div>
+</div>
+  
+
+
+
     
     <div class="twinkling-stars"></div>
     <script>
@@ -201,6 +211,14 @@
   function hidePopup() {
       document.getElementById("chatbotPopup").style.display = "none";
   }
+
+  function showPopup3() {
+    document.getElementById("JobPopup").style.display = "block";
+}
+
+function hidePopup3() {
+    document.getElementById("JobPopup").style.display = "none";
+}
     function createTwinklingStars() {
         const container = document.querySelector('.twinkling-stars');
         const numStars = 80; 
@@ -217,6 +235,9 @@
     }
 
     createTwinklingStars();
+    function redirectToJobRecommendation() {
+      window.location.href = "https://job-recommendation-by-cc.streamlit.app/";  
+  }
     
     </script>
 

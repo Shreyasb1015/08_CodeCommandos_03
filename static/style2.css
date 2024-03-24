@@ -202,3 +202,10 @@
   color:var(--main1-color);
 }
 
+.chatbot-btn3-container {
+  position: fixed;
+  bottom: 20px;
+  right: 290px;
+  z-index: 9999;
+}
+
