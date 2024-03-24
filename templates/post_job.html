@@ -18,6 +18,10 @@
             color: white;
             font-family: Arial, sans-serif;
         }
+        .my-section{
+
+            box-shadow:0 0 10px  #00abf0;;
+        }
 
         .header {
             background-color: #0f2862;
@@ -41,12 +45,9 @@
         }
 
         .card {
-
             border-radius: 25px;
             border: 5px solid white;
             box-shadow: 0 140px 140px #2b6db9 inset;
-
-
         }
 
         .card-body {
@@ -55,18 +56,15 @@
 
         form {
             margin-top: 20px;
-
         }
 
         .form-label {
             color: #2b6db9;
-
         }
 
         p {
             text-align: center;
             color: #091f36;
-
         }
 
         p:hover {
@@ -75,8 +73,13 @@
         }
 
         .form-control {
-
             border-color: #2b6db9;
+        }
+
+        
+        .form-control-lg {
+            height: auto;
+            min-height: 150px; 
         }
     </style>
 </head>
@@ -93,7 +96,7 @@
     {% endif %}
     {% endwith %}
 
-    <section class="vh-100">
+    <section class="vh-100 my-section">
         <div class="container h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-lg-12 col-xl-8">
@@ -126,7 +129,7 @@
                                         <div class="d-flex flex-row align-items-center mb-4">
                                             <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                                             <div class="form-outline flex-fill mb-0">
-                                                <b> {{ form.description.label(class="form-label") }}</b>
+                                                <b>{{ form.description.label(class="form-label") }}</b>
                                                 {% if form.description.errors %}
                                                 {{ form.description(class="form-control form-control-lg is-invalid") }}
                                                 <div class="invalid-feedback">
